@@ -2,9 +2,9 @@
 // Created by red on 2020/2/4.
 //
 
-#include "../SelectionSort/SortTestHelper.h"
+#include "../Sort/SortTestHelper.h"
 #include <algorithm>
-#include "Sort.h"
+#include "../Sort/Sort.h"
 
 using namespace std;
 

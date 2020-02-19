@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <iostream>
 #include "Student.h"
-#include "SortTestHelper.h"
+#include "../Sort/SortTestHelper.h"
 
 using namespace std;
 
