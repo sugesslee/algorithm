@@ -8,12 +8,14 @@
 #include <algorithm>
 #include "stdlib.h"
 
+#include "Sort.h"
+
 using namespace std;
 
 // 对arr[l...r]部分进行partition操作
 // 返回p, 使得arr[l...p-1] < arr[p] ; arr[p+1...r] > arr[p]
 template<typename T>
-int __partition(T arr[], int l, int r) {
+int _partition(T arr[], int l, int r) {
     // 优化1
     // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot
     swap(arr[l], arr[rand() % (r - l + 1) + l]);
@@ -35,7 +37,7 @@ int __partition(T arr[], int l, int r) {
 // 双路快速排序的partition
 // 返回p, 使得arr[l...p-1] < arr[p] ; arr[p+1...r] > arr[p]
 template<typename T>
-int __partition2(T arr[], int l, int r) {
+int _partition2(T arr[], int l, int r) {
 
     // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot
     swap(arr[l], arr[rand() % (r - l + 1) + l]);
@@ -72,28 +74,49 @@ int __partition2(T arr[], int l, int r) {
 
 // 对arr[l...r]部分进行快速排序
 template<typename T>
-void __quickSort(T arr, int l, int r) {
+void _quickSort(T arr, int l, int r) {
     // 对于小规模数组, 使用插入排序进行优化
-//    if (r - l <= 15) {
-//        insertionSort(arr, l, r);
-//        return;
-//    }
-
-    if (l >= r)
+    if (r - l <= 15) {
+        insertionSort(arr, l, r);
         return;
+    }
+
+//    if (l >= r)
+//        return;
 
 
-    int p = __partition2(arr, l, r);
-    __quickSort(arr, l, p - 1);
-    __quickSort(arr, p + 1, r);
+    int p = _partition(arr, l, r);
+    _quickSort(arr, l, p - 1);
+    _quickSort(arr, p + 1, r);
 }
 
 template<typename T>
 void quickSort(T arr[], int n) {
-    __quickSort(arr, 0, n - 1);
+    _quickSort(arr, 0, n - 1);
 }
 
+// 对arr[l...r]部分进行快速排序
+template<typename T>
+void _quickSort2Ways(T arr[], int l, int r) {
 
+    // 对于小规模数组, 使用插入排序进行优化
+    if (r - l <= 15) {
+        insertionSort(arr, l, r);
+        return;
+    }
+
+    // 调用双路快速排序的partition
+    int p = _partition2(arr, l, r);
+    _quickSort2Ways(arr, l, p - 1);
+    _quickSort2Ways(arr, p + 1, r);
+}
+
+template<typename T>
+void quickSort2Ways(T arr[], int n) {
+
+    srand(time(NULL));
+    _quickSort2Ways(arr, 0, n - 1);
+}
 // 三路快速排序
 
 // 递归的三路快速排序算法
@@ -101,12 +124,12 @@ template<typename T>
 void __quickSort3Ways(T arr[], int l, int r) {
 
     // 对于小规模数组, 使用插入排序进行优化
-//    if (r - l <= 15) {
-//        insertionSort(arr, l, r);
-//        return;
-//    }
-    if (l >= r)
+    if (r - l <= 15) {
+        insertionSort(arr, l, r);
         return;
+    }
+//    if (l >= r)
+//        return;
     // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot
     swap(arr[l], arr[rand() % (r - l + 1) + l]);
 

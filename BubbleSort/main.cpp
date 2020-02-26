@@ -12,6 +12,6 @@ int main() {
 
     SortTestHelper::testSort("insertion sort:generatorRandomArray", bubbleSort, arr, n);
 
-    SortTestHelper::printArray(arr, n);
+//    SortTestHelper::printArray(arr, n);
     delete[] arr;
 }
